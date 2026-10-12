@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Risso · Muebles que hacen tu espacio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>R</text></svg>">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="logo" href="index.html">Risso</a>
+      <form class="search" data-search>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+        <input type="search" placeholder="Buscar" aria-label="Buscar">
+      </form>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Menú">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <nav class="nav" id="site-nav">
+        <a href="catalogo.html">Catálogo</a>
+        <a class="stack" href="proyectos.html">Proyectos<br>a medidas</a>
+        <a href="nosotros.html">Nosotros</a>
+        <a href="inspirate.html">Inspírate</a>
+        <a href="contacto.html">Contacto</a>
+      </nav>
+      <div class="header-actions">
+        <a class="icon-btn" href="contacto.html" aria-label="Cuenta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"/><path d="M5 19c1.6-3.2 4-4.8 7-4.8s5.4 1.6 7 4.8"/></svg>
+        </a>
+        <button class="icon-btn" id="open-fav" aria-label="Favoritos" onclick="location.href='catalogo.html'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.6-7 10-7 10z"/></svg>
+          <span class="badge" id="fav-count">0</span>
+        </button>
+        <button class="icon-btn" id="open-cart" aria-label="Carrito">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 2-1.5L21 8H7"/></svg>
+          <span class="badge" id="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1><span class="hero-line">Muebles que hacen tu</span> espacio</h1>
+        <p>Diseño, calidad y fabricación en Pasco desde hace más de 17 años.</p>
+        <div class="hero-actions">
+          <a class="btn btn-dark" href="contacto.html">Cotiza tu mueble</a>
+          <a class="btn btn-outline" href="catalogo.html">Ver catálogo</a>
+        </div>
+      </div>
+      <img class="hero-photo" src="assets/hero.jpg" alt="Espacio de trabajo con muebles de madera junto a ventanales">
+    </div>
+  </section>
+
+  <main>
+    <section class="explore">
+      <div class="wrap">
+        <h2>Explora por ambiente</h2>
+        <div class="rooms">
+          <a class="room-card" href="catalogo.html?ambiente=Dormitorio">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18V11h18v7"/><path d="M5 11V8a2 2 0 0 1 2-2h5v5"/><path d="M3 18h18"/><path d="M6 18v2M18 18v2"/></svg>
+            Dormitorio
+          </a>
+          <a class="room-card" href="catalogo.html?ambiente=Sala">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13v5h16v-5"/><path d="M4 13h16a0 0 0 0 0 0 0v-1a3 3 0 0 0-3-3h-1V8a2 2 0 0 0-2-2H8v4H7a3 3 0 0 0-3 3z"/><path d="M7 18v2M17 18v2"/></svg>
+            Sala
+          </a>
+          <a class="room-card" href="catalogo.html?ambiente=Comedor">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v7M6 3v4a2 2 0 0 0 4 0V3"/><path d="M8 10v11"/><path d="M16 3v18"/><path d="M16 3c2 2 2 5 0 7"/></svg>
+            Comedor
+          </a>
+          <a class="room-card" href="catalogo.html?ambiente=Oficina">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M4 12h16"/></svg>
+            Oficina
+          </a>
+          <a class="room-card" href="catalogo.html?ambiente=Cocina">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 21V10l8-6 8 6v11"/><path d="M9 21v-7h6v7"/></svg>
+            Cocina
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap proof">
+        <article class="review">
+          <div class="stars">★★★★★</div>
+          <h3>Brandom Morales</h3>
+          <p>Excelente calidad y atención, supero lo que esperaba.</p>
+        </article>
+        <div class="benefits">
+          <div class="benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>
+            + 17 años de experiencia.
+          </div>
+          <div class="benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>
+            Garantía en todos los productos.
+          </div>
+          <div class="benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"/></svg>
+            Fabricación local en Pasco.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p><strong>Risso</strong> · Muebles fabricados en Pasco</p>
+      <p>Catálogo · Proyectos a medida · Contacto</p>
+    </div>
+  </footer>
+
+  <div class="drawer" id="cart-drawer" data-close-cart>
+    <div class="drawer-panel" onclick="event.stopPropagation()">
+      <h2>Carrito</h2>
+      <div id="cart-list"></div>
+      <br>
+      <a class="btn btn-dark" href="contacto.html">Cotizar pedido</a>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="js/main.js"></script>
+</body>
+</html>
