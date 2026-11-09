@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Administrador · Risso</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="logo" href="admin.html">Risso Admin</a>
+      <nav class="nav">
+        <a id="logout-btn" style="cursor:pointer;">Cerrar Sesión</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="wrap">
+      <h1>Dashboard Administrador</h1>
+      <p>Control total de solicitudes de proyectos a medida, cotizaciones y clientes.</p>
+    </div>
+  </section>
+
+  <main class="section">
+    <div class="wrap">
+      <div class="panel">
+        <h2>Solicitudes de Proyectos a Medida</h2>
+        <p style="color: var(--muted); margin-bottom: 20px;">Datos registrados en tiempo real desde Supabase.</p>
+        <div id="admin-quotes-list" style="overflow-x: auto;">
+          <p class="empty">Cargando solicitudes...</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p><strong>Risso</strong> · Panel de Control Exclusivo</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      if (!session) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const { data: profile } = await supabaseClient
+        .from('profiles')
+        .select('role')
+        .eq('id', session.user.id)
+        .single();
+
+      if (!profile || profile.role !== 'admin') {
+        alert("Acceso denegado. Se requiere cuenta de Administrador.");
+        window.location.href = 'cliente.html';
+        return;
+      }
+
+      const container = document.getElementById("admin-quotes-list");
+      const { data: quotes, error } = await supabaseClient
+        .from('proyectos_medida')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        container.innerHTML = '<p class="empty">Error al cargar datos.</p>';
+        return;
+      }
+
+      if (!quotes.length) {
+        container.innerHTML = '<p class="empty">No hay solicitudes registradas aún.</p>';
+        return;
+      }
+
+      container.innerHTML = `
+        <table style="width:100%; border-collapse: collapse; text-align: left; font-size: 14px;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--surface-border);">
+              <th style="padding: 10px;">Fecha</th>
+              <th style="padding: 10px;">Nombre</th>
+              <th style="padding: 10px;">Ambiente</th>
+              <th style="padding: 10px;">Detalle</th>
+              <th style="padding: 10px;">Acción WhatsApp</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${quotes.map(q => `
+              <tr style="border-bottom: 1px solid var(--surface-border);">
+                <td style="padding: 12px 10px;">${new Date(q.created_at).toLocaleDateString()}</td>
+                <td style="padding: 12px 10px; font-weight:700;">${q.nombre}</td>
+                <td style="padding: 12px 10px;">${q.ambiente}</td>
+                <td style="padding: 12px 10px; color:var(--muted);">${q.detalle}</td>
+                <td style="padding: 12px 10px;">
+                  <a href="https://wa.me/51918247224?text=${encodeURIComponent('Hola ' + q.nombre + ', te escribimos desde Industrias Risso respecto a tu cotización para ' + q.ambiente)}" target="_blank" class="btn btn-dark" style="height: 32px; padding: 0 12px; font-size: 12px;">Contactar</a>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+
+      document.getElementById("logout-btn").addEventListener("click", async () => {
+        await supabaseClient.auth.signOut();
+        window.location.href = 'index.html';
+      });
+    });
+  </script>
+</body>
+</html>

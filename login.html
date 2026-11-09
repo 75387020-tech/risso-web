@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceso · Risso</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .auth-container {
+      min-height: calc(100vh - var(--header-h));
+      display: grid;
+      place-items: center;
+      padding: 40px 20px;
+    }
+    .auth-card {
+      background: var(--surface);
+      width: min(420px, 100%);
+      padding: 36px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .auth-card h2 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 24px;
+      color: var(--ink);
+    }
+    .password-group {
+      position: relative;
+    }
+    .toggle-eye {
+      position: absolute;
+      right: 14px;
+      top: 42px;
+      background: none;
+      border: 0;
+      cursor: pointer;
+      color: var(--muted);
+    }
+    .forgot-btn {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--orange);
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .forgot-btn:hover {
+      text-decoration: underline;
+    }
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      place-items: center;
+      z-index: 100;
+    }
+    .modal-overlay.open {
+      display: grid;
+    }
+    .modal-content {
+      background: var(--surface);
+      padding: 30px;
+      border-radius: var(--radius);
+      width: min(380px, 90%);
+      box-shadow: var(--shadow);
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="logo" href="index.html">Risso</a>
+      <nav class="nav" id="site-nav">
+        <a href="catalogo.html">Catálogo</a>
+        <a href="proyectos.html">Proyectos a medida</a>
+        <a href="contacto.html">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="auth-container">
+    <div class="auth-card">
+      <h2>Iniciar Sesión</h2>
+      <form class="form" id="login-form">
+        <label>Correo electrónico (Gmail)</label>
+        <input type="email" id="email" placeholder="tucorreo@gmail.com" required>
+        
+        <div class="password-group">
+          <label>Contraseña</label>
+          <input type="password" id="password" placeholder="••••••••" required>
+          <button type="button" class="toggle-eye" id="toggle-password">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        
+        <a class="forgot-btn" id="forgot-password-link">¿OLVIDASTE TU CONTRASEÑA?</a>
+        <br><br>
+        <button class="btn btn-dark" type="submit" style="width:100%;">Ingresar</button>
+      </form>
+    </div>
+  </main>
+
+  <div class="modal-overlay" id="forgot-modal">
+    <div class="modal-content">
+      <h2>Recuperar Contraseña</h2>
+      <p style="font-size: 14px; color: var(--muted); margin-bottom: 16px;">Pon tu correo para enviarte un enlace de recuperación o cambio de contraseña.</p>
+      <form class="form" id="forgot-form">
+        <label>Correo electrónico</label>
+        <input type="email" id="recovery-email" placeholder="tucorreo@gmail.com" required>
+        <br>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-dark" type="submit" style="flex:1;">Enviar enlace</button>
+          <button class="ghost" type="button" id="close-forgot" style="flex:1; height:48px; border-radius:999px;">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p><strong>Risso</strong> · Muebles fabricados en Pasco</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>
