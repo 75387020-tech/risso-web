@@ -86,13 +86,13 @@
   <main class="auth-container">
     <div class="auth-card">
       <h2>Iniciar Sesión</h2>
-      <form class="form" id="login-form">
+      <form class="form" id="login-form" autocomplete="off">
         <label>Correo electrónico (Gmail)</label>
-        <input type="email" id="email" placeholder="tucorreo@gmail.com" required>
+        <input type="email" id="email" placeholder="tucorreo@gmail.com" autocomplete="off" required>
         
         <div class="password-group">
           <label>Contraseña</label>
-          <input type="password" id="password" placeholder="••••••••" required>
+          <input type="password" id="password" placeholder="••••••••" autocomplete="new-password" required>
           <button type="button" class="toggle-eye" id="toggle-password">
             <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           </button>
@@ -109,7 +109,7 @@
     <div class="modal-content">
       <h2>Recuperar Contraseña</h2>
       <p style="font-size: 14px; color: var(--muted); margin-bottom: 16px;">Pon tu correo para enviarte un enlace de recuperación o cambio de contraseña.</p>
-      <form class="form" id="forgot-form">
+      <form class="form" id="forgot-form" autocomplete="off">
         <label>Correo electrónico</label>
         <input type="email" id="recovery-email" placeholder="tucorreo@gmail.com" required>
         <br>
@@ -130,5 +130,14 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
   <script src="js/auth.js"></script>
+  <script>
+    // Limpieza estricta del campo de correo electrónico al cargar la página
+    document.addEventListener("DOMContentLoaded", () => {
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+      if (emailInput) emailInput.value = "";
+      if (passwordInput) passwordInput.value = "";
+    });
+  </script>
 </body>
 </html>
