@@ -20,7 +20,7 @@
       </button>
 
       <nav class="nav" id="admin-nav">
-        <a id="logout-btn" style="cursor:pointer; color: #ffe3d1; font-weight: 700;">Cerrar Sesión</a>
+        <a id="logout-btn" style="cursor:pointer; color: var(--ink); font-weight: 700;">Cerrar Sesión</a>
       </nav>
     </div>
   </header>
@@ -54,7 +54,7 @@
   <script src="js/supabase.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
-      // Toggle de menú responsivo para celulares
+      // 1. Toggle de menú responsivo para celulares
       const menuToggle = document.getElementById("admin-menu-toggle");
       const adminNav = document.getElementById("admin-nav");
       if (menuToggle && adminNav) {
@@ -63,7 +63,7 @@
         });
       }
 
-      // Función de Cierre de Sesión
+      // 2. Función de Cierre de Sesión
       const handleLogout = async (e) => {
         if (e) e.preventDefault();
         if (typeof supabaseClient !== 'undefined' && supabaseClient) {
@@ -77,7 +77,7 @@
         logoutBtn.addEventListener("click", handleLogout);
       }
 
-      // Verificar sesión en Supabase
+      // 3. Verificar sesión activa en Supabase
       if (typeof supabaseClient === 'undefined' || !supabaseClient) {
         window.location.href = 'login.html';
         return;
@@ -101,7 +101,7 @@
         return;
       }
 
-      // Cargar lista de cotizaciones
+      // 4. Cargar lista de cotizaciones de la tabla 'proyectos_medida'
       const container = document.getElementById("admin-quotes-list");
       const { data: quotes, error } = await supabaseClient
         .from('proyectos_medida')
@@ -109,7 +109,7 @@
         .order('created_at', { ascending: false });
 
       if (error) {
-        container.innerHTML = '<p class="empty">Error al cargar datos.</p>';
+        container.innerHTML = '<p class="empty">Error al cargar datos de Supabase.</p>';
         return;
       }
 
@@ -118,6 +118,7 @@
         return;
       }
 
+      // 5. Renderizar la tabla con las solicitudes en tiempo real
       container.innerHTML = `
         <table style="width:100%; border-collapse: collapse; text-align: left; font-size: 14px;">
           <thead>
@@ -132,12 +133,12 @@
           <tbody>
             ${quotes.map(q => `
               <tr style="border-bottom: 1px solid var(--surface-border);">
-                <td style="padding: 12px 10px;">${new Date(q.created_at).toLocaleDateString()}</td>
-                <td style="padding: 12px 10px; font-weight:700;">${q.nombre}</td>
-                <td style="padding: 12px 10px;">${q.ambiente}</td>
-                <td style="padding: 12px 10px; color:var(--muted);">${q.detalle}</td>
+                <td style="padding: 12px 10px;">${q.created_at ? new Date(q.created_at).toLocaleDateString() : 'N/D'}</td>
+                <td style="padding: 12px 10px; font-weight:700;">${q.nombre || ''}</td>
+                <td style="padding: 12px 10px;">${q.ambiente || ''}</td>
+                <td style="padding: 12px 10px; color:var(--muted);">${q.detalle || ''}</td>
                 <td style="padding: 12px 10px;">
-                  <a href="https://wa.me/51918247224?text=${encodeURIComponent('Hola ' + q.nombre + ', te escribimos desde Industrias Risso respecto a tu cotización para ' + q.ambiente)}" target="_blank" class="btn btn-dark" style="height: 32px; padding: 0 12px; font-size: 12px;">Contactar</a>
+                  <a href="https://wa.me/51918247224?text=${encodeURIComponent('Hola ' + (q.nombre || '') + ', te escribimos desde Industrias Risso respecto a tu cotización para ' + (q.ambiente || ''))}" target="_blank" class="btn btn-dark" style="height: 32px; padding: 0 12px; font-size: 12px;">Contactar</a>
                 </td>
               </tr>
             `).join('')}
