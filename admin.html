@@ -101,12 +101,12 @@
         return;
       }
 
-      // 4. Cargar lista de cotizaciones ordenando por 'creado_en' (columna real en Supabase)
+      // 4. Cargar lista de cotizaciones ordenando por 'created_at' (columna correcta de Supabase)
       const container = document.getElementById("admin-quotes-list");
       const { data: quotes, error } = await supabaseClient
         .from('proyectos_medida')
         .select('*')
-        .order('creado_en', { ascending: false });
+        .order('created_at', { ascending: false });
 
       if (error) {
         container.innerHTML = '<p class="empty">Error al cargar datos de Supabase: ' + error.message + '</p>';
@@ -133,7 +133,7 @@
           <tbody>
             ${quotes.map(q => `
               <tr style="border-bottom: 1px solid var(--surface-border);">
-                <td style="padding: 12px 10px;">${q.creado_en ? new Date(q.creado_en).toLocaleDateString() : 'N/D'}</td>
+                <td style="padding: 12px 10px;">${q.created_at ? new Date(q.created_at).toLocaleDateString() : 'N/D'}</td>
                 <td style="padding: 12px 10px; font-weight:700;">${q.nombre || ''}</td>
                 <td style="padding: 12px 10px;">${q.ambiente || ''}</td>
                 <td style="padding: 12px 10px; color:var(--muted);">${q.detalle || ''}</td>
